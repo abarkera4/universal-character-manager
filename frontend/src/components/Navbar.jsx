@@ -6,7 +6,7 @@ function Navbar() {
       <div className="container">
         <div className="navbar-brand">
           <Link to="/" className="navbar-item">
-            UCM
+            Universal Character Manager
           </Link>
         </div>
         <div className="navbar-menu">
