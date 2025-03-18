@@ -28,15 +28,19 @@ public class SecurityConfig {
                     config.setAllowedOrigins(List.of("http://localhost:5173")); // Allow frontend origin
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+                    config.setExposedHeaders(List.of("Authorization"));
                     return config;
                 }))
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                        .requestMatchers("/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
+
 }
