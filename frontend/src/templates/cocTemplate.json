@@ -1,0 +1,8 @@
+{
+    "gameSystem": "Cyberpunk",
+    "stats": ["Body", "Reflex", "Cool"],
+    "defaultSkills": ["Handgun", "Hacking", "Persuasion"],
+    "additionalSkills": true,
+    "inventory": true
+  }
+  

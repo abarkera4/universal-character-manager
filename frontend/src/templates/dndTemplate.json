@@ -1,0 +1,7 @@
+{
+    "stats": ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+    "defaultSkills": ["Acrobatics", "Arcana", "Perception"],
+    "additionalSkills": true,
+    "inventory": true
+  }
+  
