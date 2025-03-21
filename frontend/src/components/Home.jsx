@@ -9,6 +9,7 @@ import "swiper/css/effect-fade";
 import dndImg from "../assets/dnd.jpg";
 import cthulhuImg from "../assets/cthulhu.jpg";
 import cyberpunkImg from "../assets/cyberpunk.jpg";
+import travellerImg from "../assets/traveller.jpg"
 
 
 
@@ -19,6 +20,7 @@ function Home() {
     { title: "Forge Your Own Destiny", subtitle: "Track your D&D adventures with ease." },
     { title: "Unravel Dark Mysteries", subtitle: "Keep your sanity in check in Call of Cthulhu." },
     { title: "Hack the System", subtitle: "Survive the future in Cyberpunk RPG." },
+    { title: "Welcome to the Far Future", subtitle: "Explore the universe with Traveller in a way that suits you." },
   ];
 
   return (
@@ -38,20 +40,28 @@ function Home() {
 
             <Swiper
               modules={[Autoplay, EffectFade]}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
               effect="fade"
               loop
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             >
+
               <SwiperSlide>
                 <img src={dndImg} alt="Dungeons & Dragons" className="carousel-image" />
               </SwiperSlide>
+
               <SwiperSlide>
                 <img src={cthulhuImg} alt="Call of Cthulhu" className="carousel-image" />
               </SwiperSlide>
+
               <SwiperSlide>
                 <img src={cyberpunkImg} alt="Cyberpunk" className="carousel-image" />
               </SwiperSlide>
+
+              <SwiperSlide>
+                <img src={travellerImg} alt="Traveller" className="carousel-image" />
+              </SwiperSlide>
+
             </Swiper>
           </div>
         </div>
