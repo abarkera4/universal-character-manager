@@ -39,3 +39,15 @@ input[type="text"], input[type="number"] {
     border-bottom: 1px solid maroon;
   }
   
+  .dungeons-dragons .box {
+    border: 2px solid maroon;
+    background-color: #fdf6f0;
+    padding: 1.5rem;
+  }
+  
+  .dungeons-dragons .label {
+    color: #7b001c;
+    font-weight: bold;
+    font-family: "Georgia", serif;
+  }
+  

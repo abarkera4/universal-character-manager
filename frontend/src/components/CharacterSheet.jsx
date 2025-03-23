@@ -11,6 +11,7 @@ import RoleplayFieldsSection from "./RoleplayFieldsSection";
 import CurrencySection from "./CurrencySection";
 import HealthSection from "./HealthSection";
 import DerivedStatsSection from "./DerivedStatsSection";
+import CharacterHeaderSection from "./CharacterHeaderSection";
 import "../styles/CharacterSheet.css"
 
 const templates = {
@@ -25,6 +26,14 @@ const CharacterSheet = () => {
   useEffect(() => {
     if (selectedSystem) {
       const template = templates[selectedSystem];
+
+      const headerFields = {};
+      (template.headerFields || []).forEach((field) => {
+        if (field === "level") headerFields[field] = 1;
+        else if (field === "experiencePoints") headerFields[field] = 0;
+        else headerFields[field] = "";
+      });
+
 
       const stats = {};
       template.stats.forEach((stat) => (stats[stat] = 0));
@@ -66,9 +75,8 @@ const CharacterSheet = () => {
 
 
       setCharacter({
-        characterName: "New Character",
         gameSystem: selectedSystem,
-        level: 1,
+        ...headerFields,
         systemAttributes: {
           stats,
           skills,
@@ -80,19 +88,17 @@ const CharacterSheet = () => {
           ...health,
         },
       });
+      
     } else {
       setCharacter(null);
     }
   }, [selectedSystem]);
-
-  console.log("Class applied:", character.gameSystem
-    .toLowerCase()
-    .replace(/\s/g, "-")
-    .replace(/[^a-z0-9-]/g, ""))
   
 
   return (
     <div>
+      
+
       <h1>Dynamic Character Sheet</h1>
 
       <TemplateSelector
@@ -101,169 +107,386 @@ const CharacterSheet = () => {
         options={Object.keys(templates)}
       />
 
-<h3>Game System: {character.gameSystem}</h3>
+
 
       {character ? (
         <>
-           <div
-              className={`character-sheet container mt-5 ${character.gameSystem
-                .toLowerCase()
-                .replace(/\s/g, "-")
-                .replace(/[^a-z0-9-]/g, "")}`}  // Removes & and other special chars
+          <div
+            className={`character-sheet container mt-5 ${character.gameSystem
+              .toLowerCase()
+              .replace(/\s/g, "-")
+              .replace(/[^a-z0-9-]/g, "")}`} 
               
-            >
-              <h2>{character.characterName}</h2>
-              
+          >
+            {character.gameSystem === "Dungeons & Dragons" ? (
+            <>
+              <div className="sheet-header">
+                <div className="sheet-header-left">
 
-          <DerivedStatsSection
-            level={character.level}
-            setLevel={(newLevel) =>
-              setCharacter((prev) => ({
-                ...prev,
-                level: newLevel
-              }))
-            }
-            stats={character.systemAttributes.stats}
-            skills={character.systemAttributes.skills}
-          />
+                <h1>{character.gameSystem}</h1>
+                  
+                <div className="header-field">
+                    <label>Character Name</label>
+                    <input
+                      type="text"
+                      value={character.characterName}
+                      onChange={(e) =>
+                        setCharacter({ ...character, characterName: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
 
-          <StatsSection
-            stats={character.systemAttributes.stats}
-            updateStat={(stat, val) =>
-              setCharacter((prev) => ({
-                ...prev,
-                systemAttributes: {
-                  ...prev.systemAttributes,
-                  stats: {
-                    ...prev.systemAttributes.stats,
-                    [stat]: val,
-                  },
-                },
-              }))
-            }
-          />
+                <div className="sheet-header-right">
+                  {[
+                    { label: "Class & Level", field: "classAndLevel" },
+                    { label: "Background", field: "background" },
+                    { label: "Player Name", field: "playerName" },
+                    { label: "Race", field: "race" },
+                    { label: "Alignment", field: "alignment" },
+                    { label: "Experience Points", field: "experiencePoints", type: "number" },
+                  ].map(({ label, field, type = "text" }) => (
+                    <div className="header-field" key={field}>
+                      <label>{label}</label>
+                      <input
+                        type={type}
+                        value={character[field] ?? ""}
+                        onChange={(e) =>
+                          setCharacter({ ...character, [field]: e.target.value })
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-          {character.systemAttributes.savingThrows && (
-            <SavingThrowsSection
-              savingThrows={character.systemAttributes.savingThrows}
-              updateSavingThrow={(stat, value) =>
+              <div className="sheet-main">
+                <div className="abilities-section">
+                  <StatsSection
+                    stats={character.systemAttributes.stats}
+                    updateStat={(stat, val) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          stats: {
+                            ...prev.systemAttributes.stats,
+                            [stat]: val,
+                          },
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                <div className="saving-throws">
+                  <SavingThrowsSection
+                    savingThrows={character.systemAttributes.savingThrows}
+                    updateSavingThrow={(stat, value) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          savingThrows: {
+                            ...prev.systemAttributes.savingThrows,
+                            [stat]: value,
+                          },
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                <div className="skills-list">
+                  <SkillsSection
+                    skills={character.systemAttributes.skills}
+                    setSkills={(newSkills) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          skills: newSkills,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                <div className="combat-section">
+                  <DerivedStatsSection
+                    level={character.level}
+                    setLevel={(newLevel) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        level: newLevel,
+                      }))
+                    }
+                    stats={character.systemAttributes.stats}
+                    skills={character.systemAttributes.skills}
+                  />
+
+                  <HealthSection
+                    health={character.systemAttributes}
+                    updateHealthField={(field, value) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          [field]: value,
+                        },
+                      }))
+                    }
+                    toggleDeathSave={(type, index) => {
+                      setCharacter((prev) => {
+                        const updated = [...prev.systemAttributes.deathSaves[type]];
+                        updated[index] = !updated[index];
+                        return {
+                          ...prev,
+                          systemAttributes: {
+                            ...prev.systemAttributes,
+                            deathSaves: {
+                              ...prev.systemAttributes.deathSaves,
+                              [type]: updated,
+                            },
+                          },
+                        };
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="attacks-spells">
+                <AttacksSection
+                  attacks={character.systemAttributes.attacksAndSpellcasting}
+                  setAttacks={(newAttacks) =>
+                    setCharacter((prev) => ({
+                      ...prev,
+                      systemAttributes: {
+                        ...prev.systemAttributes,
+                        attacksAndSpellcasting: newAttacks,
+                      },
+                    }))
+                  }
+                />
+              </div>
+
+              <div className="bottom-section">
+                <div className="equipment">
+                  <InventorySection
+                    inventory={character.systemAttributes.inventory}
+                    setInventory={(newInventory) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          inventory: newInventory,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                <div className="proficiencies-languages">
+                  <RoleplayFieldsSection
+                    attributes={character.systemAttributes}
+                    updateField={(field, value) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          [field]: value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {character.systemAttributes.currency && (
+                <CurrencySection
+                  currency={character.systemAttributes.currency}
+                  updateCurrency={(type, value) =>
+                    setCharacter((prev) => ({
+                      ...prev,
+                      systemAttributes: {
+                        ...prev.systemAttributes,
+                        currency: {
+                          ...prev.systemAttributes.currency,
+                          [type]: value,
+                        },
+                      },
+                    }))
+                  }
+                />
+              )}
+            </>
+          ) : (
+            // Fallback layout for other systems (CoC, etc.)
+            <>
+              <CharacterHeaderSection
+              character={character}
+              updateField={(field, value) =>
                 setCharacter((prev) => ({
                   ...prev,
-                  systemAttributes: {
-                    ...prev.systemAttributes,
-                    savingThrows: {
-                      ...prev.systemAttributes.savingThrows,
-                      [stat]: value,
-                    },
-                  },
-                }))
-              }
-            />
-          )}
-
-
-          <SkillsSection
-            skills={character.systemAttributes.skills}
-            setSkills={(newSkills) =>
-              setCharacter((prev) => ({
-                ...prev,
-                systemAttributes: {
-                  ...prev.systemAttributes,
-                  skills: newSkills,
-                },
-              }))
-            }
-          />
-
-          <HealthSection
-            health={character.systemAttributes}
-            updateHealthField={(field, value) =>
-              setCharacter((prev) => ({
-                ...prev,
-                systemAttributes: {
-                  ...prev.systemAttributes,
                   [field]: value,
-                },
-              }))
-            }
-            toggleDeathSave={(type, index) => {
-              setCharacter((prev) => {
-                const updated = [...prev.systemAttributes.deathSaves[type]];
-                updated[index] = !updated[index];
-                return {
-                  ...prev,
-                  systemAttributes: {
-                    ...prev.systemAttributes,
-                    deathSaves: {
-                      ...prev.systemAttributes.deathSaves,
-                      [type]: updated,
-                    },
-                  },
-                };
-              });
-            }}
-          />
-
-
-          {character.systemAttributes.attacksAndSpellcasting && (
-            <AttacksSection
-              attacks={character.systemAttributes.attacksAndSpellcasting}
-              setAttacks={(newAttacks) =>
-                setCharacter((prev) => ({
-                  ...prev,
-                  systemAttributes: {
-                    ...prev.systemAttributes,
-                    attacksAndSpellcasting: newAttacks,
-                  },
                 }))
               }
+              template={templates[character.gameSystem]}
             />
-          )}
 
-          {character.systemAttributes.currency && (
-            <CurrencySection
-              currency={character.systemAttributes.currency}
-              updateCurrency={(type, value) =>
+
+            <DerivedStatsSection
+              level={character.level}
+              setLevel={(newLevel) =>
+                setCharacter((prev) => ({
+                  ...prev,
+                  level: newLevel
+                }))
+              }
+              stats={character.systemAttributes.stats}
+              skills={character.systemAttributes.skills}
+            />
+
+            <StatsSection
+              stats={character.systemAttributes.stats}
+              updateStat={(stat, val) =>
                 setCharacter((prev) => ({
                   ...prev,
                   systemAttributes: {
                     ...prev.systemAttributes,
-                    currency: {
-                      ...prev.systemAttributes.currency,
-                      [type]: value,
+                    stats: {
+                      ...prev.systemAttributes.stats,
+                      [stat]: val,
                     },
                   },
                 }))
               }
             />
-          )}
 
-          <InventorySection
-            inventory={character.systemAttributes.inventory}
-            setInventory={(newInventory) =>
-              setCharacter((prev) => ({
-                ...prev,
-                systemAttributes: {
-                  ...prev.systemAttributes,
-                  inventory: newInventory,
-                },
-              }))
-            }
-          />
+            {character.systemAttributes.savingThrows && (
+              <SavingThrowsSection
+                savingThrows={character.systemAttributes.savingThrows}
+                updateSavingThrow={(stat, value) =>
+                  setCharacter((prev) => ({
+                    ...prev,
+                    systemAttributes: {
+                      ...prev.systemAttributes,
+                      savingThrows: {
+                        ...prev.systemAttributes.savingThrows,
+                        [stat]: value,
+                      },
+                    },
+                  }))
+                }
+              />
+            )}
 
-          <RoleplayFieldsSection
-            attributes={character.systemAttributes}
-            updateField={(field, value) =>
-              setCharacter((prev) => ({
-                ...prev,
-                systemAttributes: {
-                  ...prev.systemAttributes,
-                  [field]: value,
-                },
-              }))
-            }
-          />
-        </div>
+
+            <SkillsSection
+              skills={character.systemAttributes.skills}
+              setSkills={(newSkills) =>
+                setCharacter((prev) => ({
+                  ...prev,
+                  systemAttributes: {
+                    ...prev.systemAttributes,
+                    skills: newSkills,
+                  },
+                }))
+              }
+            />
+
+            <HealthSection
+              health={character.systemAttributes}
+              updateHealthField={(field, value) =>
+                setCharacter((prev) => ({
+                  ...prev,
+                  systemAttributes: {
+                    ...prev.systemAttributes,
+                    [field]: value,
+                  },
+                }))
+              }
+              toggleDeathSave={(type, index) => {
+                setCharacter((prev) => {
+                  const updated = [...prev.systemAttributes.deathSaves[type]];
+                  updated[index] = !updated[index];
+                  return {
+                    ...prev,
+                    systemAttributes: {
+                      ...prev.systemAttributes,
+                      deathSaves: {
+                        ...prev.systemAttributes.deathSaves,
+                        [type]: updated,
+                      },
+                    },
+                  };
+                });
+              }}
+            />
+
+
+            {character.systemAttributes.attacksAndSpellcasting && (
+              <AttacksSection
+                attacks={character.systemAttributes.attacksAndSpellcasting}
+                setAttacks={(newAttacks) =>
+                  setCharacter((prev) => ({
+                    ...prev,
+                    systemAttributes: {
+                      ...prev.systemAttributes,
+                      attacksAndSpellcasting: newAttacks,
+                    },
+                  }))
+                }
+              />
+            )}
+
+            {character.systemAttributes.currency && (
+              <CurrencySection
+                currency={character.systemAttributes.currency}
+                updateCurrency={(type, value) =>
+                  setCharacter((prev) => ({
+                    ...prev,
+                    systemAttributes: {
+                      ...prev.systemAttributes,
+                      currency: {
+                        ...prev.systemAttributes.currency,
+                        [type]: value,
+                      },
+                    },
+                  }))
+                }
+              />
+            )}
+
+            <InventorySection
+              inventory={character.systemAttributes.inventory}
+              setInventory={(newInventory) =>
+                setCharacter((prev) => ({
+                  ...prev,
+                  systemAttributes: {
+                    ...prev.systemAttributes,
+                    inventory: newInventory,
+                  },
+                }))
+              }
+            />
+
+            <RoleplayFieldsSection
+              attributes={character.systemAttributes}
+              updateField={(field, value) =>
+                setCharacter((prev) => ({
+                  ...prev,
+                  systemAttributes: {
+                    ...prev.systemAttributes,
+                    [field]: value,
+                  },
+                }))
+              }
+            />
+            </>
+          )} 
+          </div>
         </>
       ) : (
         <p>Select a system to begin your character sheet.</p>

@@ -1,5 +1,14 @@
 {
     "gameSystem": "Cyberpunk",
+    "headerFields": [
+        "name",
+        "player",
+        "occupation",
+        "age",
+        "sex",
+        "residence",
+        "birthplace"
+      ],
     "stats": ["Body", "Reflex", "Cool"],
     "defaultSkills": ["Handgun", "Hacking", "Persuasion"],
     "additionalSkills": true,
