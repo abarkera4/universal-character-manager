@@ -3,6 +3,7 @@ input[type="text"], input[type="number"] {
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+
   button {
     padding: 5px 10px;
     border: none;
@@ -11,6 +12,7 @@ input[type="text"], input[type="number"] {
     border-radius: 4px;
     cursor: pointer;
   }
+
   button:hover {
     background-color: #c0392b;
   }
@@ -32,22 +34,206 @@ input[type="text"], input[type="number"] {
   .dungeons--dragons {
     font-family: "Georgia", serif;
     background-color: #fdf6f0;
+    padding: 1rem;
+    border: 1.5px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .dungeons--dragons h3 {
     color: maroon;
     border-bottom: 1px solid maroon;
+    margin-bottom: 10px;
   }
   
-  .dungeons-dragons .box {
+  .dungeons--dragons .box {
     border: 2px solid maroon;
     background-color: #fdf6f0;
     padding: 1.5rem;
   }
   
-  .dungeons-dragons .label {
+  .dungeons--dragons .label {
     color: #7b001c;
     font-weight: bold;
     font-family: "Georgia", serif;
+  }
+
+  .dungeons-title {
+    padding-bottom: 10px;
+    font-size: xx-large;
+  }
+
+  .dungeons-sheet-header {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 0rem;
+    margin-bottom: 1rem;
+    align-items: stretch; 
+    border: 1px solid #000;
+  }
+  
+  .dungeons-sheet-header-left {
+    padding: 1rem;
+    height: 100%;          
+    box-sizing: border-box;
+  }
+  
+  .dungeons-sheet-header-right {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    border-left: 1px solid #000;
+    padding: 0.5rem;
+    height: 100%;    
+    box-sizing: border-box;
+  }
+  
+  .dungeons-header-field,
+  .dungeons-character-name-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    
+  }
+
+  .dungeons--dragons .ability-scores-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .dungeons--dragons .ability-score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 130px;
+
+  }
+  
+  
+  .dungeons--dragons .stat-label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+  }
+  
+  
+  .dungeons--dragons .score-input {
+    font-size: 1.6rem;
+    width: 60px;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+    border: none;
+
+    }
+  
+  .dungeons--dragons .modifier-box {
+    background-color: #fff;
+    border: 1px solid #000;
+    width: 45px;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 0.25rem;
+    border-radius: 30px;
+    }
+    
+  .dungeon-sheet-main {
+    display: grid;
+    grid-template-columns: 0.5fr .5fr 1fr .5fr;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .dungeons--dragons .saving-throws {
+    border: 1px dashed #333;
+    padding: 1rem;
+    background-color: #fffaf3;
+  }
+  
+  .dungeons--dragons .saving-throws-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dungeons--dragons .saving-throw-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-family: "Georgia", serif;
+    gap: 0.5rem;
+  }
+  
+  .dungeons--dragons .skills-list ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .dungeons--dragons .skills-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .dungeons--dragons .skills-list input[type="checkbox"] {
+    transform: scale(1.2);
+  }
+
+  .dungeons--dragons .skill-bonus {
+    width: 30px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    padding: 2px;
+    border-radius: 0;
+    font-size: small;
+  }
+  
+  .dungeons--dragons .skill-bonus:focus {
+    border-bottom-color: #c0392b;
+  }
+
+  .dungeons--dragons .dungeon-skills-list {
+    background: transparent;
+    border: none;
+    padding-left: 0;
+
+  }
+  
+  .dungeons-dragons .ac-speed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #000;
+    background-color: #fffaf3;
+  }
+  
+  .dungeons-dragons .ac-speed label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dungeons-dragons .ac-speed input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #000;
+    background: transparent;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 0.25rem;
+    border-radius: 0;
   }
   

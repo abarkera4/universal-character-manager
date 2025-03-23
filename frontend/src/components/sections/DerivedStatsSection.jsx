@@ -20,18 +20,6 @@ const DerivedStatsSection = ({ level, setLevel, stats, skills }) => {
     return (
       <div>
         <h3>Derived Stats</h3>
-  
-        <div style={{ marginBottom: "10px" }}>
-          <label><strong>Level: </strong></label>
-          <input
-            type="number"
-            min="1"
-            max="20"
-            value={level}
-            onChange={(e) => setLevel(parseInt(e.target.value, 10))}
-          />
-        </div>
-  
         <p><strong>Proficiency Bonus:</strong> +{proficiencyBonus}</p>
         <p><strong>Passive Wisdom (Perception):</strong> {passiveWisdom}</p>
       </div>

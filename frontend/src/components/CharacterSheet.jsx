@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import cocTemplate from "../templates/cocTemplate.json";
 import dndTemplate from "../templates/dndTemplate.json";
-import StatsSection from "./StatsSection";
-import SkillsSection from "./SkillsSection";
-import InventorySection from "./InventorySection";
+import StatsSection from "./sections/StatsSection";
+import SkillsSection from "./sections/SkillsSection";
+import InventorySection from "./sections/InventorySection";
 import TemplateSelector from "./TemplateSelector";
-import SavingThrowsSection from "./SavingThrowsSection";
-import AttacksSection from "./AttacksSection";
+import SavingThrowsSection from "./sections/SavingThrowsSection";
+import AttacksSection from "./sections/AttacksSection";
 import RoleplayFieldsSection from "./RoleplayFieldsSection";
-import CurrencySection from "./CurrencySection";
-import HealthSection from "./HealthSection";
-import DerivedStatsSection from "./DerivedStatsSection";
+import CurrencySection from "./sections/CurrencySection";
+import HealthSection from "./sections/HealthSection";
+import DerivedStatsSection from "./sections/DerivedStatsSection";
 import CharacterHeaderSection from "./CharacterHeaderSection";
+import ACSpeedSection from "./sections/ACSpeedSection";
 import "../styles/CharacterSheet.css"
 
 const templates = {
@@ -46,6 +47,9 @@ const CharacterSheet = () => {
 
       const skills = template.defaultSkills.map((skill) => ({ name: skill, value: 0 }));
 
+      
+
+
       let health = {};
       if (template.currentHitPoints) health.currentHitPoints = 0;
       if (template.temporaryHitPoints) health.temporaryHitPoints = 0;
@@ -72,6 +76,9 @@ const CharacterSheet = () => {
       if (template.flaws) extras.flaws = "";
       if (template.otherProficienciesAndLanguages) extras.otherProficienciesAndLanguages = [];
       if (template.featuresAndTraits) extras.featuresAndTraits = [];
+      if (template.armorClass) extras.armorClass = 0;
+      if (template.initiative) extras.initiative = 0;
+      if (template.speed) extras.speed = 0;
 
 
       setCharacter({
@@ -120,12 +127,12 @@ const CharacterSheet = () => {
           >
             {character.gameSystem === "Dungeons & Dragons" ? (
             <>
-              <div className="sheet-header">
-                <div className="sheet-header-left">
+              <div className="dungeons-sheet-header">
+                <div className="dungeons-sheet-header-left">
 
-                <h1>{character.gameSystem}</h1>
+                <h3 className="dungeons-title">{character.gameSystem}</h3>
                   
-                <div className="header-field">
+                <div className="dungeons-header-field">
                     <label>Character Name</label>
                     <input
                       type="text"
@@ -137,7 +144,7 @@ const CharacterSheet = () => {
                   </div>
                 </div>
 
-                <div className="sheet-header-right">
+                <div className="dungeons-sheet-header-right">
                   {[
                     { label: "Class & Level", field: "classAndLevel" },
                     { label: "Background", field: "background" },
@@ -146,7 +153,7 @@ const CharacterSheet = () => {
                     { label: "Alignment", field: "alignment" },
                     { label: "Experience Points", field: "experiencePoints", type: "number" },
                   ].map(({ label, field, type = "text" }) => (
-                    <div className="header-field" key={field}>
+                    <div className="dungeons-header-field" key={field}>
                       <label>{label}</label>
                       <input
                         type={type}
@@ -160,7 +167,7 @@ const CharacterSheet = () => {
                 </div>
               </div>
 
-              <div className="sheet-main">
+              <div className="dungeon-sheet-main">
                 <div className="abilities-section">
                   <StatsSection
                     stats={character.systemAttributes.stats}
@@ -176,6 +183,18 @@ const CharacterSheet = () => {
                         },
                       }))
                     }
+                  />
+
+                  <DerivedStatsSection
+                    level={character.level}
+                    setLevel={(newLevel) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        level: newLevel,
+                      }))
+                    }
+                    stats={character.systemAttributes.stats}
+                    skills={character.systemAttributes.skills}
                   />
                 </div>
 
@@ -195,34 +214,36 @@ const CharacterSheet = () => {
                       }))
                     }
                   />
-                </div>
+                  <div className="skills-list">
+                    <SkillsSection
+                      skills={character.systemAttributes.skills}
+                      setSkills={(newSkills) =>
+                        setCharacter((prev) => ({
+                          ...prev,
+                          systemAttributes: {
+                            ...prev.systemAttributes,
+                            skills: newSkills,
+                          },
+                        }))
+                      }
+                    />
+                  </div>
+              </div>
 
-                <div className="skills-list">
-                  <SkillsSection
-                    skills={character.systemAttributes.skills}
-                    setSkills={(newSkills) =>
+                
+
+                <div className="combat-section">
+                  <ACSpeedSection
+                    values={character.systemAttributes}
+                    updateField={(field, value) =>
                       setCharacter((prev) => ({
                         ...prev,
                         systemAttributes: {
                           ...prev.systemAttributes,
-                          skills: newSkills,
+                          [field]: value,
                         },
                       }))
                     }
-                  />
-                </div>
-
-                <div className="combat-section">
-                  <DerivedStatsSection
-                    level={character.level}
-                    setLevel={(newLevel) =>
-                      setCharacter((prev) => ({
-                        ...prev,
-                        level: newLevel,
-                      }))
-                    }
-                    stats={character.systemAttributes.stats}
-                    skills={character.systemAttributes.skills}
                   />
 
                   <HealthSection
@@ -253,57 +274,25 @@ const CharacterSheet = () => {
                       });
                     }}
                   />
-                </div>
-              </div>
+                  <div className="attacks-spells">
 
-              <div className="attacks-spells">
-                <AttacksSection
-                  attacks={character.systemAttributes.attacksAndSpellcasting}
-                  setAttacks={(newAttacks) =>
-                    setCharacter((prev) => ({
-                      ...prev,
-                      systemAttributes: {
-                        ...prev.systemAttributes,
-                        attacksAndSpellcasting: newAttacks,
-                      },
-                    }))
-                  }
-                />
-              </div>
-
-              <div className="bottom-section">
-                <div className="equipment">
-                  <InventorySection
-                    inventory={character.systemAttributes.inventory}
-                    setInventory={(newInventory) =>
+                  <AttacksSection
+                    attacks={character.systemAttributes.attacksAndSpellcasting}
+                    setAttacks={(newAttacks) =>
                       setCharacter((prev) => ({
                         ...prev,
                         systemAttributes: {
                           ...prev.systemAttributes,
-                          inventory: newInventory,
+                          attacksAndSpellcasting: newAttacks,
                         },
                       }))
                     }
                   />
-                </div>
-
-                <div className="proficiencies-languages">
-                  <RoleplayFieldsSection
-                    attributes={character.systemAttributes}
-                    updateField={(field, value) =>
-                      setCharacter((prev) => ({
-                        ...prev,
-                        systemAttributes: {
-                          ...prev.systemAttributes,
-                          [field]: value,
-                        },
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-
-              {character.systemAttributes.currency && (
+                  
+                  
+                  </div>
+                  <div className="equipment">
+                  {character.systemAttributes.currency && (
                 <CurrencySection
                   currency={character.systemAttributes.currency}
                   updateCurrency={(type, value) =>
@@ -320,6 +309,40 @@ const CharacterSheet = () => {
                   }
                 />
               )}
+                  <InventorySection
+                    inventory={character.systemAttributes.inventory}
+                    setInventory={(newInventory) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          inventory: newInventory,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+                </div>
+
+                <div className="personality-section">
+                <div className="proficiencies-languages">
+                  <RoleplayFieldsSection
+                    attributes={character.systemAttributes}
+                    updateField={(field, value) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          [field]: value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                </div>
+                
+            </div>
             </>
           ) : (
             // Fallback layout for other systems (CoC, etc.)
