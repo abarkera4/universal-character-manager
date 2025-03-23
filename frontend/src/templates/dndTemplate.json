@@ -1,7 +1,29 @@
 {
-    "stats": ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
-    "defaultSkills": ["Acrobatics", "Arcana", "Perception"],
-    "additionalSkills": true,
-    "inventory": true
-  }
-  
+  "stats": ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+  "defaultSkills": ["Acrobatics (Dex)", "Animal Handling (Wis)", "Arcana (Int)", "Athletics (Str)", "Deception (Cha)", "History (Int)", "Insight (Wis)", "Intimidation (Cha)", "Investigation (Int)", "Medicine (Wis)", "Nature (Int)", "Perception (Wis)", "Performance (Cha)", "Persuasion (Cha), Religion (Int)", "Sleight of Hand (Dex)", "Stealth (Dex)", "Survival (Wis)"],
+  "additionalSkills": true,
+  "inventory": true,
+
+  "savingThrows": ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+  "attacksAndSpellcasting": true,
+  "passiveWisdom": true,
+  "inspiration": true,
+  "proficiencyBonus": true,
+  "armorClass": true,
+  "initiative": true,
+  "speed": true,
+  "currentHitPoints": true,
+  "temporaryHitPoints": true,
+  "hitDice": true,
+  "deathSaves": {
+    "successes": 3,
+    "failures": 3
+  },
+  "currency": ["CP", "SP", "EP", "GP", "PP"],
+  "otherProficienciesAndLanguages": "todo",
+  "personalityTraits": "textarea",
+  "goals": "textarea",
+  "bonds": "textarea",
+  "flaws": "textarea",
+  "featuresAndTraits": "todo"
+}

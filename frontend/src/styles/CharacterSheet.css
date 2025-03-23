@@ -14,4 +14,28 @@ input[type="text"], input[type="number"] {
   button:hover {
     background-color: #c0392b;
   }
+
+  /* Call of Cthulhu */
+  
+  .call-of-cthulhu {
+    font-family: "Times New Roman", serif;
+    background-color: #f0f7f4;
+  }
+  
+  .call-of-cthulhu h3 {
+    color: darkolivegreen;
+    font-variant: small-caps;
+  }
+
+  /*Dungeons & Dragons */
+  
+  .dungeons--dragons {
+    font-family: "Georgia", serif;
+    background-color: #fdf6f0;
+  }
+  
+  .dungeons--dragons h3 {
+    color: maroon;
+    border-bottom: 1px solid maroon;
+  }
   
