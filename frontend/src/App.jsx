@@ -20,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/character" element={<Character />} />
+          <Route path="/characterdnd" element={<DnDCharacterSheet />} />
         </Routes>
       </div>
     </>
