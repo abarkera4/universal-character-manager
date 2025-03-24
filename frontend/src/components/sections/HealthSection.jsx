@@ -17,46 +17,45 @@ const CheckboxRow = ({ label, values, onToggle }) => (
 
 const HealthSection = ({ health, updateHealthField, toggleDeathSave }) => {
   return (
-    <div>
-      <h3>Health</h3>
+    <div className="health-grid">
       {health.currentHitPoints !== undefined && (
-        <div>
-          <label>Current HP: </label>
+        <div className="health-box">
           <input
             type="number"
+            className="health-input"
             value={health.currentHitPoints}
             onChange={(e) => updateHealthField("currentHitPoints", parseInt(e.target.value))}
-            style={{ marginBottom: "10px" }}
           />
+          <label className="health-label">Current HP</label>
         </div>
       )}
 
       {health.temporaryHitPoints !== undefined && (
-        <div>
-          <label>Temporary HP: </label>
+        <div className="health-box">
           <input
             type="number"
+            className="health-input"
             value={health.temporaryHitPoints}
             onChange={(e) => updateHealthField("temporaryHitPoints", parseInt(e.target.value))}
-            style={{ marginBottom: "10px" }}
           />
+          <label className="health-label">Temp HP</label>
         </div>
       )}
 
       {health.hitDice !== undefined && (
-        <div>
-          <label>Hit Dice: </label>
+        <div className="health-box">
           <input
             type="text"
+            className="health-input"
             value={health.hitDice}
             onChange={(e) => updateHealthField("hitDice", e.target.value)}
-            style={{ marginBottom: "10px" }}
           />
+          <label className="health-label">Hit Dice</label>
         </div>
       )}
 
       {health.deathSaves && (
-        <>
+        <div className="death-saves">
           <CheckboxRow
             label="Death Saves - Successes"
             values={health.deathSaves.successes}
@@ -67,7 +66,7 @@ const HealthSection = ({ health, updateHealthField, toggleDeathSave }) => {
             values={health.deathSaves.failures}
             onToggle={(i) => toggleDeathSave("failures", i)}
           />
-        </>
+        </div>
       )}
     </div>
   );

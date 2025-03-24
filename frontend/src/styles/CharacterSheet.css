@@ -210,30 +210,93 @@ input[type="text"], input[type="number"] {
 
   }
   
-  .dungeons-dragons .ac-speed {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+  .dungeons--dragons .ac-speed-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dungeons--dragons .ac-speed-box {
     border: 1px solid #000;
+    width: 120px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
     background-color: #fffaf3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   }
   
-  .dungeons-dragons .ac-speed label {
-    display: block;
+  .dungeons--dragons .ac-speed-input {
+    font-size: 1.6rem;
     font-weight: bold;
-    margin-bottom: 0.25rem;
+    text-align: center;
+    border: none;
+   
+    width: 60%;
+    background: transparent;
+    outline: none;
   }
   
-  .dungeons-dragons .ac-speed input {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid #000;
-    background: transparent;
+  .dungeons--dragons .ac-speed-label {
+    position: absolute;
+    bottom: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
     text-align: center;
-    font-size: 1.2rem;
-    padding: 0.25rem;
-    border-radius: 0;
+    color: #333;
+  }
+
+  .dungeons--dragons .health-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dungeons--dragons .health-box {
+    border: 1px solid #000;
+    width: 110px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #fffaf3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dungeons--dragons .health-input {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    width: 60%;
+    background: transparent;
+    outline: none;
+  }
+  
+  .dungeons--dragons .health-label {
+    position: absolute;
+    bottom: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: #333;
+  }
+  
+  .dungeons--dragons .death-saves {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px dashed #000;
+    background-color: #fdf6f0;
   }
   

@@ -7,11 +7,11 @@ import InventorySection from "./sections/InventorySection";
 import TemplateSelector from "./TemplateSelector";
 import SavingThrowsSection from "./sections/SavingThrowsSection";
 import AttacksSection from "./sections/AttacksSection";
-import RoleplayFieldsSection from "./RoleplayFieldsSection";
+import RoleplayFieldsSection from "./sections/RoleplayFieldsSection";
 import CurrencySection from "./sections/CurrencySection";
 import HealthSection from "./sections/HealthSection";
 import DerivedStatsSection from "./sections/DerivedStatsSection";
-import CharacterHeaderSection from "./CharacterHeaderSection";
+import CharacterHeaderSection from "./sections/CharacterHeaderSection";
 import ACSpeedSection from "./sections/ACSpeedSection";
 import "../styles/CharacterSheet.css"
 

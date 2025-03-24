@@ -23,6 +23,9 @@ function Navbar() {
             <Link to="/register" className="navbar-item">
               Register
             </Link>
+            <Link to="/dashboard" className="navbar-item">
+              Dashboard
+            </Link>
           </div>
         </div>
       </div>
