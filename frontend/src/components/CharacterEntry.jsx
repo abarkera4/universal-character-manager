@@ -11,6 +11,7 @@ const CharacterEntry = ({ character, onSelectCharacter }) => {
       </a>
       {expanded && (
         <ul className="ml-4 mt-1">
+          <li><a onClick={() => onSelectCharacter(character, 'Character Details')}>Character Details</a></li>
           <li><a onClick={() => onSelectCharacter(character, 'Attacks')}>Attacks</a></li>
           <li><a onClick={() => onSelectCharacter(character, 'Inventory')}>Inventory</a></li>
           <li><a onClick={() => onSelectCharacter(character, 'Personality')}>Personality</a></li>
