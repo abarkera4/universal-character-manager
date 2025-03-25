@@ -22,6 +22,7 @@ input[type="text"], input[type="number"] {
   .call-of-cthulhu {
     font-family: "Times New Roman", serif;
     background-color: #f0f7f4;
+    padding: 1rem;
   }
   
   .call-of-cthulhu h3 {
@@ -29,8 +30,563 @@ input[type="text"], input[type="number"] {
     font-variant: small-caps;
   }
 
-  /*Dungeons & Dragons */
   
+  .call-of-cthulhu-header {
+    font-family: "Times New Roman", serif;
+    background-color: #fdfdf9;
+    padding: 1rem;
+    border: 1px solid #999;
+    width: 320px;
+  }
+  
+  .call-of-cthulhu-header .coc-header-grid {
+    display: grid;
+    gap: 0.75rem 2rem;
+  }
+
+  .call-of-cthulhu-header .coc-input {
+    font-family: "Times New Roman", serif;
+    font-size: 1rem;
+    border-bottom: 1px solid #333 !important;
+    background: transparent;
+    padding: 0;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .call-of-cthulhu-header .coc-header-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .call-of-cthulhu-header .coc-header-field.small {
+    flex: 1;
+  }
+  
+  .call-of-cthulhu-header .coc-header-field {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 4px;
+    position: relative;
+  }
+  
+  .call-of-cthulhu-header .coc-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+ 
+  .call-of-cthulhu-header .coc-title {
+    background-color: #000;
+    color: #f0f7f4 !important;
+    text-align: center;
+  }
+
+  .call-of-cthulhu .coc-characteristics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .call-of-cthulhu .coc-stat-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+  }
+
+  .characteristics-title {
+    text-align: center;
+    font-size: x-large;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    padding: 0.25rem 0;
+    height: 33%;
+  }
+
+  .coc-characteristics-grid {
+    font-family: "Times New Roman", serif;
+    background-color: #fdfdf9;
+    padding: 2.5rem;
+    padding-top: 0;
+  }
+  
+  .call-of-cthulhu .coc-stat-label {
+    font-weight: bold;
+    width: 2.5rem;
+    font-size: 1rem;
+    text-align: right;
+  }
+  
+  .call-of-cthulhu .coc-stat-inputs {
+    display: flex;
+    align-items: center;
+  }
+  
+  .call-of-cthulhu .coc-stat-main {
+    width: 60px;
+    height: 40px;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #444;
+    background-color: #fff;
+    margin-right: 0.3rem;
+    font-family: "Times New Roman", serif;
+  }
+  
+  .call-of-cthulhu .coc-stat-smalls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40px;
+  }
+  
+  .call-of-cthulhu .coc-stat-half,
+  .call-of-cthulhu .coc-stat-fifth {
+    width: 28px;
+    height: 18px;
+    font-size: 0.85rem;
+    text-align: center;
+    line-height: 18px;
+    border: 1px solid #999;
+    background-color: #fdfdf9;
+    font-family: "Times New Roman", serif;
+  }
+  
+  .call-of-cthulhu .coc-top-section-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .call-of-cthulhu .coc-image-placeholder {
+    border: 2px dashed #999;
+    height: 280px;
+    background-color: #f8f8f4;
+    font-style: italic;
+    color: #666;
+    text-align: center;
+    line-height: 200px;
+    font-family: "Times New Roman", serif;
+  }
+
+  .coc-top-left,
+  .coc-top-center,
+  .coc-top-right {
+    background-color: #fdfdf9; 
+    border: 1px solid #ccc;    
+    padding: 0.5rem;
+    flex: 1;                  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .coc-top-left {
+    flex: 1;
+  }
+
+  .coc-top-center {
+    flex: 2;
+  }
+
+  .coc-top-right {
+    flex: 1;
+  }
+
+  /* CoC HP Section */
+
+  .coc-hp-section {
+    border: 1px solid #aaa;
+    background-color: #fdfdf9;
+    padding: 0.5rem;
+    font-family: "Times New Roman", serif;
+  }
+  .coc-vertical-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    padding: 0.25rem 0;
+    border-left: 1.5px solid #444;
+    height: 23%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+
+  }
+
+  .coc-hp-grid-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .coc-hp-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    padding-right: 10px;
+  }
+
+  .coc-max-hp {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.6rem;
+    text-align: center;
+  }
+
+  .coc-max-hp input {
+    width: 30px;
+  }
+
+  .coc-hp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .labeled-row .hp-label {
+    font-size: 0.8rem;
+    font-style: italic;
+    width: 55px;
+    text-align: center;
+    font-size: 0.6rem;
+    font-family: "Times New Roman", serif;
+    border: 1px solid #444;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    height: 25px;
+  }
+
+  .coc-hp-button {
+    width: 25px;
+    height: 25px;
+    font-size: 0.6rem;
+    font-family: "Times New Roman", serif;
+    border: 1px solid #444;
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+
+  .coc-hp-button.active {
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+  }
+
+  .coc-hp-layout {
+    display: flex;
+    align-items: flex-start;
+
+  }
+  
+  .coc-hp-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .coc-hp-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  /* CoC Sanity */
+
+  .coc-sanity-section {
+    border: 1px solid #aaa;
+    background-color: #fdfdf9;
+    padding: 0.5rem;
+    font-family: "Times New Roman", serif;
+    display: flex;
+    flex-direction: COL;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .coc-sanity-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .coc-sanity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1; 
+  }
+  
+  
+  .coc-sanity-top-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .coc-sanity-max {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  
+  .coc-sanity-max input {
+    width: 30px;
+  }
+  
+  .coc-sanity-checks {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  
+  .coc-sanity-button {
+    width: 27px;
+    height: 27px;
+    font-size: 0.7rem;
+    font-family: "Times New Roman", serif;
+    border: 1px solid #444;
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+  
+  .coc-sanity-button.active {
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+  }
+
+  .coc-vertical-label-sanity {
+    writing-mode: vertical-rl;
+    transform: rotate(360deg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    padding: 0.25rem 0;
+    border-left: none;
+    border-left: 1.5px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    align-self: stretch;
+    margin-right: 15px;
+  }
+
+  .coc-sanity-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .coc-sanity-field {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  
+  .coc-sanity-field input {
+    width: 60px;
+    font-family: "Times New Roman", serif;
+  }
+  
+  .coc-middle-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+  
+  /* CoC Luck */
+
+  .coc-luck-section {
+    border: 1px solid #aaa;
+    background-color: #fdfdf9;
+    padding: 1rem;
+    font-family: "Times New Roman", serif;
+    display: flex;
+    flex-direction: COL;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .coc-luck-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .coc-luck-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  
+  .coc-luck-top-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .coc-luck-field {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  
+  .coc-luck-field input {
+    width: 30px;
+    font-family: "Times New Roman", serif;
+  }
+  
+  .coc-luck-button {
+    width: 30.9px;
+    height: 29px;
+    font-size: 0.7rem;
+    font-family: "Times New Roman", serif;
+    border: 1px solid #444;
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+  
+  .coc-luck-button.active {
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .coc-vertical-label-luck {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    padding: 0.25rem 0;
+    border-left: 1.5px solid #444;
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin-right: 15px;
+  }
+
+  .coc-luck-caption {
+    height: 29px;
+    width: 64px;
+    font-size: .7rem;
+    font-family: "Times New Roman", serif;
+    border: 1px solid #444;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    padding: 3.5px;
+  }
+  
+  /* CoC Magic Points */
+  
+  .coc-mp-section {
+  border: 1px solid #aaa;
+  background-color: #fdfdf9;
+  padding: 1rem;
+  font-family: "Times New Roman", serif;
+  text-align: center;
+  width: fit-content;
+  margin-top: -35px;
+}
+
+.coc-mp-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.coc-vertical-label-mp {
+  writing-mode: vertical-rl;
+    transform: rotate(360deg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    padding: 0.25rem 0;
+    border-left: none;
+    border-left: 1.5px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    align-self: stretch;
+}
+
+.coc-mp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.coc-mp-max input {
+  width: 30px;
+  font-family: "Times New Roman", serif;
+  margin-left: 5px;
+}
+
+.coc-mp-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.coc-mp-button {
+  width: 27px;
+  height: 27px;
+  font-size: 0.7rem;
+  font-family: "Times New Roman", serif;
+  border: 1px solid #444;
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+
+.coc-mp-button.active {
+  background-color: #222;
+  color: white;
+  font-weight: bold;
+}
+
+
+
+  /**/
+  /*Dungeons & Dragons */
+  /**/
+
   .dungeons--dragons {
     font-family: "Georgia", serif;
     background-color: #fdf6f0;

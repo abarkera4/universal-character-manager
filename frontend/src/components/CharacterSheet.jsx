@@ -13,6 +13,11 @@ import HealthSection from "./sections/HealthSection";
 import DerivedStatsSection from "./sections/DerivedStatsSection";
 import CharacterHeaderSection from "./sections/CharacterHeaderSection";
 import ACSpeedSection from "./sections/ACSpeedSection";
+import CoCCharacteristics from "./sections/CoCCharacteristics";
+import CoCSanitySection from "./sections/CoCSanitySection";
+import CoCHitPointsSection from "./sections/CoCHitPointsSection";
+import CoCLuckSection from "./sections/CoCLuckSection";
+import CoCMagicPointsSection from "./sections/CoCmagicPointsSection";
 import "../styles/CharacterSheet.css"
 
 const templates = {
@@ -47,9 +52,6 @@ const CharacterSheet = () => {
 
       const skills = template.defaultSkills.map((skill) => ({ name: skill, value: 0 }));
 
-      
-
-
       let health = {};
       if (template.currentHitPoints) health.currentHitPoints = 0;
       if (template.temporaryHitPoints) health.temporaryHitPoints = 0;
@@ -80,6 +82,37 @@ const CharacterSheet = () => {
       if (template.initiative) extras.initiative = 0;
       if (template.speed) extras.speed = 0;
 
+      //CoC
+
+      let sanity = null;
+      let hitPoints = null;
+      let luck = null;
+      let magicPoints = null;
+
+      if (selectedSystem === "Call of Cthulhu") {
+        sanity = {
+          start: 50,
+          max: 99,
+          current: 50,
+          temporaryInsanity: false,
+          indefiniteInsanity: false,
+          insane: false
+        },
+        hitPoints = {
+          max: 10,
+          current: 10,
+          majorWound: false,
+          dying: false,
+          unconscious: false
+        },
+        luck = {
+          value: 50
+        },
+        magicPoints = {
+          current: 10,
+          max: 10
+        };
+      }
 
       setCharacter({
         gameSystem: selectedSystem,
@@ -93,6 +126,10 @@ const CharacterSheet = () => {
           ...extras,
           currency,
           ...health,
+          sanity,
+          hitPoints,
+          luck,
+          magicPoints,
         },
       });
       
@@ -125,6 +162,121 @@ const CharacterSheet = () => {
               .replace(/[^a-z0-9-]/g, "")}`} 
               
           >
+           {character.gameSystem === "Call of Cthulhu" && (
+            <>
+              <div className="coc-top-section-grid">
+
+                <div className="coc-top-left">
+                  <CharacterHeaderSection
+                    character={character}
+                    updateField={(field, value) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        [field]: value,
+                      }))
+                    }
+                    template={templates[character.gameSystem]}
+                  />
+                </div>
+
+                <div className="coc-top-center">
+                  <CoCCharacteristics
+                    stats={character.systemAttributes.stats}
+                    updateStat={(key, val) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          stats: {
+                            ...prev.systemAttributes.stats,
+                            [key]: val,
+                          },
+                        },
+                      }))
+                    }
+                  />
+                </div>
+
+                <div className="coc-top-right">
+                  <div className="coc-image-placeholder">Portrait Goes Here</div>
+                </div>
+              </div>
+                
+                <div className="coc-middle-section-grid">
+                  <div className="coc-hp-wrapper">
+                    <div className="coc-middle-row">
+                      <CoCHitPointsSection
+                        hitPoints={character.systemAttributes.hitPoints}
+                        updateField={(field, value) =>
+                          setCharacter((prev) => ({
+                            ...prev,
+                            systemAttributes: {
+                              ...prev.systemAttributes,
+                              [field]: value,
+                            },
+                          }))
+                        }
+                      />
+
+                      <CoCSanitySection
+                        sanity={character.systemAttributes.sanity}
+                        updateField={(field, value) =>
+                          setCharacter((prev) => ({
+                            ...prev,
+                            systemAttributes: {
+                              ...prev.systemAttributes,
+                              [field]: value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+
+                    </div>
+
+                    <div className="coc-middle-row">
+                    
+
+                    <div className="coc-luck-wrapper">
+                      <CoCLuckSection
+                        luck={character.systemAttributes.luck}
+                        updateField={(field, value) =>
+                          setCharacter((prev) => ({
+                            ...prev,
+                            systemAttributes: {
+                              ...prev.systemAttributes,
+                              [field]: value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div className="coc-mp-wrapper">
+                      <CoCMagicPointsSection
+                        magicPoints={character.systemAttributes.magicPoints}
+                        updateField={(field, value) =>
+                          setCharacter((prev) => ({
+                            ...prev,
+                            systemAttributes: {
+                              ...prev.systemAttributes,
+                              [field]: value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                  </div>
+
+
+                    
+                </div>
+
+
+
+              </>
+            )}
+
+
             {character.gameSystem === "Dungeons & Dragons" ? (
             <>
               <div className="dungeons-sheet-header">
@@ -344,8 +496,8 @@ const CharacterSheet = () => {
                 
             </div>
             </>
-          ) : (
-            // Fallback layout for other systems (CoC, etc.)
+          ) : character.gameSystem !== "Call of Cthulhu" ? (
+           
             <>
               <CharacterHeaderSection
               character={character}
@@ -508,7 +660,7 @@ const CharacterSheet = () => {
               }
             />
             </>
-          )} 
+          ) : null} 
           </div>
         </>
       ) : (
