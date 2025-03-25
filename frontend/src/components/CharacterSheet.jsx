@@ -18,6 +18,7 @@ import CoCSanitySection from "./sections/CoCSanitySection";
 import CoCHitPointsSection from "./sections/CoCHitPointsSection";
 import CoCLuckSection from "./sections/CoCLuckSection";
 import CoCMagicPointsSection from "./sections/CoCmagicPointsSection";
+import CoCInvestigatorSkillsSection from "./sections/CoCInvestigatorSkillsSection";
 import "../styles/CharacterSheet.css"
 
 const templates = {
@@ -266,13 +267,20 @@ const CharacterSheet = () => {
                       />
                     </div>
                   </div>
-
-
+                  <CoCInvestigatorSkillsSection
+                    skills={character.systemAttributes.skills}
+                    setSkills={(newSkills) =>
+                      setCharacter((prev) => ({
+                        ...prev,
+                        systemAttributes: {
+                          ...prev.systemAttributes,
+                          skills: newSkills,
+                        },
+                      }))
+                    }
+                  />
                     
                 </div>
-
-
-
               </>
             )}
 
