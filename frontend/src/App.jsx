@@ -1,19 +1,20 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./components/Home";
-import DnDCharacterSheet from "./components/DnDCharacterSheet";
 import Login from "./components/Login";
-import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import CharacterGenerator from "./components/CharacterGenerator";
 import Character from "./components/Characters";
 import CharacterSheet from "./components/CharacterSheet";
 import CharacterDashboard from "./components/CharacterDashboard";
+import Navbar from "./components/Navbar"
 
 function App() {
+  const location = useLocation();
   return (
     <>
-      <Navbar />
-      <div className="container">
+      {location.pathname !== "/" && <Navbar />}
+
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/random" element={<CharacterGenerator/>} />
@@ -21,7 +22,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/character" element={<Character />} />
-          <Route path="/characterdnd" element={<DnDCharacterSheet />} />
           <Route path="/dashboard" element={<CharacterDashboard />} />
         </Routes>
       </div>
