@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="navbar is-primary">
-      <div className="container">
+      <div className="navbar-container">
         <div className="navbar-brand">
           <Link to="/" className="navbar-item">
             Universal Character Manager

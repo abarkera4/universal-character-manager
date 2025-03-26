@@ -18,6 +18,7 @@ import CoCSanitySection from "./sections/CoCSanitySection";
 import CoCHitPointsSection from "./sections/CoCHitPointsSection";
 import CoCLuckSection from "./sections/CoCLuckSection";
 import CoCMagicPointsSection from "./sections/CoCmagicPointsSection";
+import CoCInvestigatorSkillsSection from "./sections/CoCInvestigatorSkillsSection";
 import "../styles/CharacterSheet.css"
 
 const templates = {
@@ -140,7 +141,7 @@ const CharacterSheet = () => {
   
 
   return (
-    <div>
+    <div className="character-sheet-container ">
       
 
       <h1>Dynamic Character Sheet</h1>
@@ -162,6 +163,7 @@ const CharacterSheet = () => {
               .replace(/[^a-z0-9-]/g, "")}`} 
               
           >
+
            {character.gameSystem === "Call of Cthulhu" && (
             <>
               <div className="coc-top-section-grid">
@@ -200,6 +202,7 @@ const CharacterSheet = () => {
                 <div className="coc-top-right">
                   <div className="coc-image-placeholder">Portrait Goes Here</div>
                 </div>
+                
               </div>
                 
                 <div className="coc-middle-section-grid">
@@ -231,48 +234,57 @@ const CharacterSheet = () => {
                         }
                       />
                     </div>
-
-                    </div>
+                  </div>
 
                     <div className="coc-middle-row">
                     
+                      <div className="coc-luck-wrapper">
+                        <CoCLuckSection
+                          luck={character.systemAttributes.luck}
+                          updateField={(field, value) =>
+                            setCharacter((prev) => ({
+                              ...prev,
+                              systemAttributes: {
+                                ...prev.systemAttributes,
+                                [field]: value,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
 
-                    <div className="coc-luck-wrapper">
-                      <CoCLuckSection
-                        luck={character.systemAttributes.luck}
-                        updateField={(field, value) =>
+                      <div className="coc-mp-wrapper">
+                        <CoCMagicPointsSection
+                          magicPoints={character.systemAttributes.magicPoints}
+                          updateField={(field, value) =>
+                            setCharacter((prev) => ({
+                              ...prev,
+                              systemAttributes: {
+                                ...prev.systemAttributes,
+                                [field]: value,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+
+                    </div>
+
+                      <div className="coc-skils-wrapper">
+                      <CoCInvestigatorSkillsSection
+                        skills={character.systemAttributes.skills}
+                        setSkills={(newSkills) =>
                           setCharacter((prev) => ({
                             ...prev,
                             systemAttributes: {
                               ...prev.systemAttributes,
-                              [field]: value,
+                              skills: newSkills,
                             },
                           }))
                         }
                       />
-                    </div>
-                    <div className="coc-mp-wrapper">
-                      <CoCMagicPointsSection
-                        magicPoints={character.systemAttributes.magicPoints}
-                        updateField={(field, value) =>
-                          setCharacter((prev) => ({
-                            ...prev,
-                            systemAttributes: {
-                              ...prev.systemAttributes,
-                              [field]: value,
-                            },
-                          }))
-                        }
-                      />
-                    </div>
-                  </div>
-
-
-                    
+                      </div>
                 </div>
-
-
-
               </>
             )}
 

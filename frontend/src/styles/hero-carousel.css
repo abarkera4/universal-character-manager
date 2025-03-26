@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   padding: 0;
+  margin-top: 0;
 }
 
 .carousel-image {
@@ -13,6 +14,7 @@
   height: 450px;
   object-fit: cover;
   display: block;
+  margin-top: 0;
 }
 
 .hero-overlay {
@@ -27,23 +29,28 @@
   width: 80%;
   z-index: 10;
   flex: 1;
+  margin-top: 0;
 }
 
 .hero-title {
   font-size: 2.5rem;
   font-weight: bold;
+  text-shadow: gray 1px 0 10px;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   margin-top: 10px;
+  text-shadow: gray 1px 0 5px;
 }
 
-.register-box {
-  max-width: 400px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  flex: 1;
+.title {
+  color: black;
+  font-size: xxx-large;
+  text-shadow: white 1px 0 10px;
+}
+
+.subtitle {
+  color: black;
+  text-shadow: white 1px 0 10px;
 }
