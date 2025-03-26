@@ -17,6 +17,16 @@ input[type="text"], input[type="number"] {
     background-color: #c0392b;
   }
 
+  .character-sheet-container {
+    background-image: url("../assets/Background.jpg");
+    min-height: 100vh;
+    color: #333;
+    padding: 1rem;
+
+    background-size: cover;
+  }
+  
+
   /* Call of Cthulhu */
   
   .call-of-cthulhu {
@@ -581,6 +591,56 @@ input[type="text"], input[type="number"] {
   font-weight: bold;
 }
 
+/*CoC Skills */
+
+.call-of-cthulhu .skills-list ul {
+  padding: 2px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  
+}
+
+.call-of-cthulhu .skills-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+
+.call-of-cthulhu .skills-list input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+.call-of-cthulhu .skill-bonus {
+  width: 30px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  padding: 2px;
+  border-radius: 0;
+  font-size: small;
+}
+
+.call-of-cthulhu .skill-bonus:focus {
+  border-bottom-color: #c0392b;
+}
+
+.call-of-cthulhu .investigator-skills-list {
+  background: transparent;
+  border: none;
+  padding-left: 0;
+  
+}
+.coc-skils-wrapper {
+  padding: 10px;
+  border: 1px solid #000;
+  margin-top: 10px;
+}
 
 
   /**/

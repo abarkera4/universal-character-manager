@@ -25,43 +25,43 @@ const CoCInvestigatorSkillsSection = ({ skills, setSkills }) => {
   };
 
   return (
-    <div>
+    <div className="skills-list">
       
       <ul>
-  {skills.map((skill, index) => (
-    <li key={index} style={{ marginBottom: "5px", display: "flex", alignItems: "center" }}>
-      <input
-        type="checkbox"
-        checked={skill.checked || false}
-        onChange={(e) => {
-          const updated = [...skills];
-          updated[index].checked = e.target.checked;
-          setSkills(updated);
-        }}
-        style={{ marginRight: "10px" }}
-      />
+        {skills.map((skill, index) => (
+          <li key={index} >
+            <input
+              type="checkbox"
+              checked={skill.checked || false}
+              onChange={(e) => {
+                const updated = [...skills];
+                updated[index].checked = e.target.checked;
+                setSkills(updated);
+              }}
+              style={{ marginRight: "10px" }}
+            />
 
-      <input
-        type="number"
-        value={skill.value}
-        onChange={(e) => updateSkill(index, parseInt(e.target.value, 10))}
-        placeholder="Value"
-        className="skill-bonus"
-        style={{ marginRight: "10px" }}
-      />
+            <input
+              type="number"
+              value={skill.value}
+              onChange={(e) => updateSkill(index, parseInt(e.target.value, 10))}
+              placeholder="Value"
+              className="skill-bonus"
+              style={{ marginRight: "10px" }}
+            />
 
 
-      <input
-        type="text"
-        value={skill.name}
-        onChange={(e) => updateSkillName(index, e.target.value)}
-        placeholder="Skill Name"
-        className="dungeon-skills-list"
-        style={{ flex: 1 }}
-      />
-    </li>
-  ))}
-</ul>
+            <input
+              type="text"
+              value={skill.name}
+              onChange={(e) => updateSkillName(index, e.target.value)}
+              placeholder="Skill Name"
+              className="investigator-skills-list"
+              style={{ flex: 1 }}
+            />
+          </li>
+        ))}
+      </ul>
 
       <button onClick={addSkill}>+ Add Skill</button>
 
