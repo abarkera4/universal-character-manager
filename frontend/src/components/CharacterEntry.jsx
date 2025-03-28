@@ -12,10 +12,14 @@ const CharacterEntry = ({ character, onSelectCharacter }) => {
       {expanded && (
         <ul className="ml-4 mt-1">
           <li><a onClick={() => onSelectCharacter(character, 'Character Details')}>Character Details</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Stats')}>Stats</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Skills')}>Skills</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Armor/AC')}>Armor/AC</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Health')}>Health</a></li>
           <li><a onClick={() => onSelectCharacter(character, 'Attacks')}>Attacks</a></li>
-          <li><a onClick={() => onSelectCharacter(character, 'Inventory')}>Inventory</a></li>
-          <li><a onClick={() => onSelectCharacter(character, 'Personality')}>Personality</a></li>
-          <li><a onClick={() => onSelectCharacter(character, 'Character Sheet')}>Full Sheet</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Equipment')}>Equipment</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Features and Traits')}>Features and Traits</a></li>
+          <li><a onClick={() => onSelectCharacter(character, 'Character Sheet')}>Character Sheet</a></li>
         </ul>
       )}
     </li>

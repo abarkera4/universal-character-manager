@@ -18,7 +18,7 @@ input[type="text"], input[type="number"] {
   }
 
   .character-sheet-container {
-    background-image: url("../assets/Background.jpg");
+    /*background-image: url("../assets/Background5.jpg");*/
     min-height: 100vh;
     color: #333;
     padding: 1rem;
