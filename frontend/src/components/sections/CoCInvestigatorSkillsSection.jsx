@@ -1,16 +1,10 @@
 import React from "react";
-import EditableField from "../EditableField";
 
 const CoCInvestigatorSkillsSection = ({ skills, setSkills }) => {
-  const updateSkill = (index, value) => {
+  const updateSkillValue = (index, newValue) => {
     const updated = [...skills];
-    updated[index].value = value;
+    updated[index].value = newValue;
     setSkills(updated);
-  };
-
-  const addSkill = () => {
-    const newSkill = { name: "New Skill", value: 0 };
-    setSkills([...skills, newSkill]);
   };
 
   const updateSkillName = (index, newName) => {
@@ -19,52 +13,61 @@ const CoCInvestigatorSkillsSection = ({ skills, setSkills }) => {
     setSkills(updated);
   };
 
-  const removeSkill = (index) => {
-    const updated = skills.filter((_, i) => i !== index);
+  const updateSkillCheck = (index, checked) => {
+    const updated = [...skills];
+    updated[index].checked = checked;
     setSkills(updated);
+  };
+
+  const addSkill = () => {
+    const newSkill = { name: "New Skill", value: 0, checked: false };
+    setSkills([...skills, newSkill]);
   };
 
   return (
     <div className="skills-list">
-      
       <ul>
-        {skills.map((skill, index) => (
-          <li key={index} >
-            <input
-              type="checkbox"
-              checked={skill.checked || false}
-              onChange={(e) => {
-                const updated = [...skills];
-                updated[index].checked = e.target.checked;
-                setSkills(updated);
-              }}
-              style={{ marginRight: "10px" }}
-            />
+        {skills.map((skill, index) => {
+          const half = Math.floor(skill.value / 2);
+          const fifth = Math.floor(skill.value / 5);
 
-            <input
-              type="number"
-              value={skill.value}
-              onChange={(e) => updateSkill(index, parseInt(e.target.value, 10))}
-              placeholder="Value"
-              className="skill-bonus"
-              style={{ marginRight: "10px" }}
-            />
+          return (
+            <li key={index} className="skill-row">
+              <input
+                type="checkbox"
+                checked={skill.checked || false}
+                onChange={(e) => updateSkillCheck(index, e.target.checked)}
+                style={{ marginLeft: "10px" }}
+              />
 
+              <input
+                type="text"
+                value={skill.name}
+                onChange={(e) => updateSkillName(index, e.target.value)}
+                placeholder="Skill Name"
+                className="investigator-skills-list"
+                style={{ flex: 1 }}
+              />
 
-            <input
-              type="text"
-              value={skill.name}
-              onChange={(e) => updateSkillName(index, e.target.value)}
-              placeholder="Skill Name"
-              className="investigator-skills-list"
-              style={{ flex: 1 }}
-            />
-          </li>
-        ))}
+              <input
+                type="number"
+                value={skill.value}
+                onChange={(e) => updateSkillValue(index, parseInt(e.target.value, 10) || 0)}
+                placeholder="Value"
+                className="skill-bonus"
+      
+              />
+
+              <div className="skill-breakdown">
+                <input type="number" readOnly value={half} />
+                <input type="number" readOnly value={fifth} />
+              </div>
+            </li>
+          );
+        })}
       </ul>
 
       <button onClick={addSkill}>+ Add Skill</button>
-
     </div>
   );
 };
