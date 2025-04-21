@@ -28,14 +28,16 @@ public class SecurityConfig {
                     config.setAllowedOrigins(List.of("http://localhost:5173")); // Allow frontend origin
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+                    config.setExposedHeaders(List.of("Authorization"));
+                    config.setAllowCredentials(true); // Allow cookies
                     return config;
                 }))
                 .csrf().disable()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh", "/api/auth/logout").permitAll()
                         .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                );
 
         return http.build();
     }
